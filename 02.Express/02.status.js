@@ -1,5 +1,5 @@
 const express = require('express');
-const utill = require('util');
+const util = require('util');
 
 const app = express();
 
@@ -25,5 +25,5 @@ app.get('*', (req, res) => {
 //app.post();
 
 app.listen(4000, () => {
-    console.log('Server Running at http://127.0.0.1:4000');
+    util.log('Server Running at http://127.0.0.1:4000');
 });
