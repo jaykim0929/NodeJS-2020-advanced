@@ -6,9 +6,9 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-    dm.getJoinLists(rows => {
-        const view= require('./view/gg_join');
-        let html = view.gg_mainForm(rows);
+    dm.getAllLists(rows => {
+        const view= require('./view/gg_list');
+        let html = view.mainForm(rows);
         res.send(html);
     });
 });
@@ -20,12 +20,13 @@ app.get('/insert', (req, res) => {
 });
 
 app.post('/insert', (req, res) => {
+    let _id = req.body._id;
     let name = req.body.name;
     let debut = req.body.debut;
     let hit_song_id = req.body.hit_song_id;
-    let params = [name, debut, hit_song_id];
+    let params = [_id, name, debut, hit_song_id];
     
-    dm.insertSong(params, () => {
+    dm.insertGirl_group(params, () => {
         res.redirect('/');
     });
 });
@@ -33,7 +34,7 @@ app.post('/insert', (req, res) => {
 app.get('/delete/:_id', (req, res) => {
     let _id = parseInt(req.params._id);
     console.log(_id);
-    dm.deleteSong(_id, () => {
+    dm.deleteGirl_group(_id, () => {
         res.redirect('/');
     });
     

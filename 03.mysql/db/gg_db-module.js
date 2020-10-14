@@ -18,12 +18,9 @@ module.exports = {
         });
         return conn;
     },
-    getJoinLists:    function(callback) {
+    getAllLists:    function(callback) {
         let conn = this.getConnection();
-        let sql = `SELECT gg._id, gg.name, gg.debut, gg.hit_song_id
-                    left JOIN girl_group AS gg
-
-                    ;`;
+        let sql = `SELECT * FROM girl_group ORDER BY _id DESC LIMIT 20;`;
         conn.query(sql, (error, rows, fields) => {
             if (error)
                 console.log(error);
@@ -31,10 +28,10 @@ module.exports = {
         });
         conn.end();
     },
-    insertSong:     function(params, callback) {
-        let sql = `insert into girl_group (_id, name, debut, hit_song_id) 
-                    values(_id=?, name=?, debut=?, hit_song_id=?) 
-                    ;`;
+    
+    insertGirl_group:     function(params, callback) {
+        let sql = `INSERT INTO girl_group (name, debut, hit_song_id) 
+                    value(?, ?, ?, ?);`;
         let conn = this.getConnection();
         conn.query(sql, params, function(error, fields) {
             if (error)
@@ -43,7 +40,7 @@ module.exports = {
         });
         conn.end();
     },
-    deleteSong:     function(_id, callback) {
+    deleteGirl_group:     function(_id, callback) {
         let sql = `delete from girl_group where _id=?;`;
         let conn = this.getConnection();
         conn.query(sql, _id, function(error, fields) {
@@ -55,7 +52,8 @@ module.exports = {
     },
     getSong:    function(_id, callback) {
         let sql = `select * from girl_group(_id, name, debut, hit_song_id), 
-                    where (_id=?, name=?, debut=?, hit_song_id=?) ;`;
+                    values(?, ?, ?, ?) 
+                    ;`;
         let conn = this.getConnection();
         conn.query(sql, _id, function(error, rows, fields) {
             if (error)

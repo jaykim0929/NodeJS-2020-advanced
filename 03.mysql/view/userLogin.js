@@ -18,7 +18,7 @@ module.exports.loginForm = function() {
                 </tr>
                 <tr>
                     <td><label for="pwd">패스워드</label></td>
-                    <td><input type="text" name="pwd" id="pwd"></td>
+                    <td><input type="password" name="pwd" id="pwd"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center">

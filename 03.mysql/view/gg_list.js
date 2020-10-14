@@ -1,4 +1,4 @@
-module.exports.gg_mainForm = function(rows) {
+module.exports.mainForm = function(rows) {
     let tableRow = '';
     for (let row of rows) {
         tableRow += `<tr>
