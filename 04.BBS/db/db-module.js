@@ -1,7 +1,10 @@
 const fs = require('fs');
+const { Callbacks } = require('jquery');
 const mysql = require('mysql');
+const { callbackify } = require('util');
 let info = fs.readFileSync('./mysql.json', 'utf8');
 let config = JSON.parse(info);
+
 
 module.exports = {
     getConnection:  function() {
@@ -18,41 +21,37 @@ module.exports = {
         });
         return conn;
     },
-    getAllLists:    function(callback) {
+    // BBS DB
+    getBbsList:         function(callback) {
         let conn = this.getConnection();
-        let sql = `SELECT uid, uname, date_format(regDate, '%Y-%m-%d %T') AS regDate  
-                    FROM users WHERE isDeleted=0
-                    ORDER BY regDate LIMIT 10;`;
-        conn.query(sql, (error, rows, fields) => {
-            if (error)
-                console.log(error);
-            callback(rows);
-        });
-        conn.end();
-    },
-    getUserInfo:    function(uid, callback) {
-        let conn = this.getConnection();
-        let sql = `select * from users where uid like ?;`;
-        conn.query(sql, uid, (error, results, fields) => {
-            if (error)
-                console.log(error);
-            callback(results[0]);   // 주의할 것
-        });
-        conn.end();
-    },
-    deleteUser:     function(uid, callback) {
-        let conn = this.getConnection();
-        let sql = `update users set isDeleted=1 where uid like ?;`;
-        conn.query(sql, uid, (error, fields) => {
+        let sql = `SELECT b.bid, b.uid, u.uname, b.title, b.content, b.modTime, b.viewCount
+                    FROM bbs AS b
+                    JOIN users AS u
+                    ON b.uid=u.uid
+                    WHERE b.isDeleted=0
+                    ORDER BY b.bid desc
+                    LIMIT 10;`;
+        conn.query(sql, params, (error,  fields) => {
             if (error)
                 console.log(error);
             callback();
         });
         conn.end();
     },
-    updateUser:     function(params, callback) {
+    getBbsTotalCount:       function(callback) {
         let conn = this.getConnection();
-        let sql = `update users set pwd=? where uid like ?;`;
+        let sql = `SELECT COUNT(*) FROM bbs WHERE isDeleted=0;`;
+        conn.query(sql, params, (error, fields) =>{
+            if (error)
+                console.log(error);
+            callback();
+        });
+        conn.end();
+    },
+    // USERS DB
+    registerUser:           function(params, callback) {
+        let conn = this.getConnection();
+        let sql = `INSERT INTO users(uid, pwd, uname, tel, email) VALUES(?,?,?,?);`;
         conn.query(sql, params, (error, fields) => {
             if (error)
                 console.log(error);
