@@ -13,46 +13,55 @@
 
 <body>
 
-	<div class="container">
+	<div class="container mt-5">
 		<div class="row">
-			<div class="col-12">
-				<h3>회원 가입</h3>
-				<hr>
+			<div class="col-1"></div>
+			<div class="col-7">
+					<h4>제목</h4>
+					<h6>글번호: 1006 | 2020-10-16 11:22:33</h6>
 			</div>
-			<div class="col-3"></div>
-			<div class="col-6">
-				<form action="/user/register" method="post">
-					<table class="table table-borderless">
-						<tr>
-							<td><label for="uid">사용자 ID</label></td>
-							<td><input type="text" name="uid" id="uid"></td>
-						</tr>
-						<tr>
-							<td><label for="pwd">패스워드</label></td>
-							<td><input type="password" name="pwd" id="pwd"></td>
-						</tr>
-						<tr>
-							<td><label for="pwd2">패스워드 확인</label></td>
-							<td><input type="password" name="pwd2" id="pwd2"></td>
-						</tr>
-						<tr>
-							<td><label for="uname">이름</label></td>
-							<td><input type="text" name="uname" id="uname"></td>
-						</tr>
-						<tr>
-							<td colspan="2" style="text-align: center;">
-								<input class="btn btn-primary" type="submit" value="제출">
-								<a href=""></a>
-								<input class="btn btn-secondary" type="reset" value="취소">
-							</td>
-						</tr>
-					</table>
+			<div class="col-3" style="text-align: right;">
+					<h4>irene</h4>
+					<h6>조회 21&nbsp;&nbsp;댓글 4</h6>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-12"></div>
+			<div class="col-1"></div>
+			<div class="col-10">
+					<p>
+						홀린 듯 날 따라와
+						모두 환호해 너도 곧 ooh ooh (oh-eh-oh-eh-oh)
+						아닌 척해도 넌 ooh ooh (oh-eh-oh-eh-oh)
+						한 번 내기를 해볼까
+						너무 쉽겐 오지 마
+						재미 없잖아 거기서 ooh ooh (oh-eh-oh-eh-oh)
+						밀고 당겨볼까 Ooh ooh (oh-eh-oh-eh-oh)
+						시작할게 bad boy down
+					</p>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-12"><hr></div>
+			<div class="col-1"></div>
+			<div class="col-10">
+				<div class="card bg-light text-dark" style="margin-right: 45%;">
+						<div class="card-body">Light card</div>
+				</div>
+				<div class="card bg-light text-dark" style="margin-right: 45%;">
+						<div class="card-body">Basic card</div>
+				</div>
+				<div class="card" style="margin-left: 60%;">
+					<div class="card-body">Basic card</div>
+				</div>
+				<form class="form-inline">
+					<input type="hidden" name="bid" value="">
+					<label for="reply" class="ml-5 mt-3 mr-3">댓글</label>
+					<textarea class="ml-3 mt-3 mr-3"  id="reply" name="reply" rows="3" cols="80" ></textarea>
+					<button type="submit" class="btn btn-primary ml-3 mt-3 mr-5">등록</button>
 				</form>
 			</div>
-			<div class="col-3"></div>
+			<div class="col-1"></div>
 		</div>
 	</div>
-
 </body>
 
 </html>

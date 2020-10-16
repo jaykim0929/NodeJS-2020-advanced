@@ -2,13 +2,31 @@ const express = require('express');
 const ut = require('./util');
 const dm = require('./db/db-module');
 const alert = require('./view/alertMsg');
+const tplt = require('./view/template');
 
 const uRouter = express.Router();
-uRouter.get('/register', (req, res) => {
-    const view = require('./view/userRegister');
-    let html = view.register();
-    res.send(html);
+uRouter.get('/dispatch', (req, res) => {
+    if (req.session.uid === 'admin') {
+        res.redirect('/user/list/1');
+    } else {
+        res.redirect(`/user/update/${req.session.uid}`);
+    }
 });
+
+uRouter.get('/list/:page', (req,res) => {
+    let uid =req.params.uid;
+    if (uid != req. session.uid) {
+        let html = alert.alertMsg('조회권한이 없습니다.', `/bbs/list/1`);
+        res.send(html);
+    } else {
+        dm.getUserInfo(uid, result => {
+            let view =require('./view/userView')
+        })
+    }
+})
+
+
+
 
 uRouter.post('/register', (req, res) => {
     let uid = req.body.uid;
