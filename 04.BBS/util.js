@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const monent = require('moment');
+const moment = require('moment');
 
 module.exports = {
     generateHash:   function(something) {
@@ -15,11 +15,11 @@ module.exports = {
             next();
         }
     },
-    //DB에서 읽은 시간을 오늘이면 시간을 어제까지는 날짜를 반환
+    // DB에서 읽은 시간을 오늘이면 시간을 어제까지는 날짜를 반환
     getDisplayTime:     function(dt) {
-        let today =moment().format('YYYY-MM-DD');
-        let dbtime = moment(dt). format('YYYY-MM=DD HH:mm:ss');
+        let today = moment().format('YYYY-MM-DD');
+        let dbtime = moment(dt).format('YYYY-MM-DD HH:mm:ss');
         return (dbtime.indexOf(today) == 0) ?
             dbtime.substring(11) : dbtime.substring(0,10);
-    }   
+    }
 }
