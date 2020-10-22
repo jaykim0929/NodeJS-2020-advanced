@@ -4,6 +4,7 @@ module.exports.view = function(navBar, data) {
 	return `
         ${template.header()}
         ${navBar}
+
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
         <div class="col-12">
@@ -16,6 +17,8 @@ module.exports.view = function(navBar, data) {
                 <tr>
                     <td>사용자 ID</td>
                     <td>${data.uid}</td>
+                    <td rowspan="4">
+                        <img style="margin-left:20px;" src="${data.photo}" width="100">
                 </tr>
                 <tr>
                     <td>이름</td>
@@ -38,7 +41,9 @@ module.exports.view = function(navBar, data) {
         </div>
         <div class="col-3"></div>
     </div>
+    
 </div>
-		${template.footer()}
+
+        ${template.footer()}
     `;
 }

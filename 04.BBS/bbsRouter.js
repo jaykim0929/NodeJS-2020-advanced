@@ -4,24 +4,41 @@ const dm = require('./db/db-module');
 const alert = require('./view/alertMsg');
 const tplt = require('./view/template');
 
+const multer = require('multer');
+
 const bRouter = express.Router();
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: __dirname + '/../public/upload/',
+
+    //파일 이름 설정
+        filename: (req, file, cb) => {
+            cb(null, new Date().toISOString().replace(/[-:\.A-Z]/g, '') + "_" + file.originalname)
+        }
+    })
+});
+
+
+
+
 bRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
     let page = parseInt(req.params.page);
     req.session.currentPage = page;
     let offset = (page - 1) * 10;
-    dm.getBbsTotalCount(result => {
-        let totalPage = Math.ceil(result.count / 10);
-        let startPage = Math.floor((page-1)/10)*10 + 1;
-        let endPage = Math.ceil(page/10)*10;
-        endPage = (endPage > totalPage) ? totalPage : endPage;
-        dm.getBbsList(offset, rows => {
+    Promise.all([dm.getBbsTotalCount(), dm.getBbsList(offset)])
+        .than(([result, rows]) => {
+            let totalPage = Math.ceil(result.count / 10);
+            let startPage = Math.floor((page - 1) / 10) * 10 + 1;
+            let endPage = Math.ceil(page / 10) * 10;
+            endPage = (endPage > totalPage) ? totalPage : endPage;
             let view = require('./view/bbsList');
             let navBar = tplt.navBar(req.session.uname?req.session.uname:'개발자');
             let html = view.list(navBar, rows, page, startPage, endPage, totalPage);
             res.send(html);
-        })
     });
-});
+})
+   
+
 
 bRouter.post('/search', ut.isLoggedIn, (req, res) => {
     let keyword = '%' + req.body.keyword + '%';

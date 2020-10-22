@@ -11,7 +11,7 @@ module.exports.alertMsg = function(message, url) {
                 var message = '${message}';
                 var returnUrl = '${url}';
                 alert(message);
-                document.location.href = returnUrl;
+                window.history.go;
             </script>
         </body>
         </html>

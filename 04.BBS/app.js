@@ -65,7 +65,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-
 app.listen(4000, () => {
     console.log('Server Running at http://127.0.0.1:4000');
 });

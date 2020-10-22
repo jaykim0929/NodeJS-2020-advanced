@@ -21,5 +21,14 @@ module.exports = {
         let dbtime = moment(dt).format('YYYY-MM-DD HH:mm:ss');
         return (dbtime.indexOf(today) == 0) ?
             dbtime.substring(11) : dbtime.substring(0,10);
-    }
+    },
+    hasRight:   function(req, res, next) {
+        if (req.params.uid !== req.session.uid) {
+            let html = alert.alertMsgHistory('권한이 없습니다.');
+            res.send(html);
+            //res.send('<script>window.history.go(-1)</script>');
+        } else {
+            next();
+        }
+    },
 }

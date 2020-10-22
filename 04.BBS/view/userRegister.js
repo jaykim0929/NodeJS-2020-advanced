@@ -1,8 +1,9 @@
 const template = require('./template');
 
-module.exports.register = function () {
+module.exports.update = function(navBar, data) {
 	return `
         ${template.header()}
+    
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="#">
         <img src="/img/logo.png" alt="호서직업능력개발원"
@@ -17,7 +18,7 @@ module.exports.register = function () {
         </div>
         <div class="col-3"></div>
         <div class="col-6">
-            <form action="/user/register" method="post">
+            <form action="/user/register" method="post" enctype="multeipart/form-data">
                 <table class="table table-borderless">
                     <tr>
                         <td><label for="uid">사용자 ID</label></td>
@@ -40,8 +41,17 @@ module.exports.register = function () {
                         <td><input type="text" name="tel" id="tel"></td>
                     </tr>
                     <tr>
-                        <td><label for="email">이메일</label></td>
+                        <td colspan="2" style="text-align: right"><label for="email">이메일</label></td>
                         <td><input type="text" name="email" id="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="photo">사진</label></td>
+                        <td>    
+                            <div class="custom-file mb-3">
+                                <input type="file" name="custom-file-input" id="photo" name="photo">
+                                <label class="custom-file-lavel" for="photo">SelectFile</label>
+                            </div>    
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
@@ -49,12 +59,21 @@ module.exports.register = function () {
                             <input class="btn btn-secondary" type="reset" value="취소">
                         </td>
                     </tr>
+                    
                 </table>
             </form>
+
         </div>
         <div class="col-3"></div>
     </div>
 </div>
-		${template.footer()}
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+        ${template.footer()}
     `;
 }
