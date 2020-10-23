@@ -1,8 +1,8 @@
-const template = require('./template');
+const tplt = require('./template');
 
-module.exports.update = function(navBar, data) {
-	return `
-        ${template.header()}
+module.exports.register = function() {
+	    return `
+        ${tplt.header()}
     
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="#">
@@ -17,7 +17,7 @@ module.exports.update = function(navBar, data) {
             <hr>
         </div>
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-9">
             <form action="/user/register" method="post" enctype="multeipart/form-data">
                 <table class="table table-borderless">
                     <tr>
@@ -41,7 +41,7 @@ module.exports.update = function(navBar, data) {
                         <td><input type="text" name="tel" id="tel"></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: right"><label for="email">이메일</label></td>
+                        <td ><label for="email">이메일</label></td>
                         <td><input type="text" name="email" id="email"></td>
                     </tr>
                     <tr>
@@ -74,6 +74,6 @@ module.exports.update = function(navBar, data) {
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
-        ${template.footer()}
+            ${tplt.footer}    
     `;
 }

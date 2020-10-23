@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const moment = require('moment');
+const alert = require('./view/alertMsg');
 
 module.exports = {
     generateHash:   function(something) {

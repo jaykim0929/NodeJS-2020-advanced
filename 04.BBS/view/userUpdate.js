@@ -1,9 +1,9 @@
-const template = require('./template');
+const tplt = require('./template');
 
 module.exports.update = function(navBar, data) {
 	return `
-        ${template.header()}
-        ${navBar}
+            ${tplt.header()}
+    ${navBar}
 
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
@@ -71,6 +71,6 @@ module.exports.update = function(navBar, data) {
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
-        ${template.footer()}
+        ${tplt.footer()}
     `;
 }

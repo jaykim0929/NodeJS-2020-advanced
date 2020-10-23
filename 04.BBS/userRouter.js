@@ -8,7 +8,7 @@ const multer = require('multer');
 const uRouter = express.Router();
 const upload = multer({
     storage: multer.diskStorage({
-        destination: __dirname + '/../public/upload/',
+        destination: __dirname + '/public/upload/',
 
     //파일 이름 설정
         filename: (req, file, cb) => {
@@ -30,21 +30,17 @@ uRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
         let html = alert.alertMsg('조회 권한이 없습니다.', `/bbs/list/1`);
         res.send(html);
     } else {
-        if (req.params.page === 'null') {
-            res.status(200).send();
-        } else {
-            let page = parseInt(req.params.page);
-            let offset = (page - 1) * 10;
-            dm.getUserTotalCount(result => {
-                let totalPage = Math.ceil(result.count / 10);
-                dm.getUserList(offset, rows => {
-                    let view = require('./view/userList.js');
-                    let navBar = tplt.navBar(req.session.uname);
-                    let html = view.list(navBar, rows, page, totalPage);
-                    res.send(html);
-                })
-            });
-        }
+        let page = parseInt(req.params.page);
+        let offset = (page - 1) * 10;
+        dm.getUserTotalCount(result => {
+            let totalPage = Math.ceil(result.count / 10);
+            dm.getUserList(offset, rows => {
+                let view = require('./view/userList');
+                let navBar = tplt.navBar(req.session.uname);
+                let html = view.list(navBar, rows, page, totalPage);
+                res.send(html);
+            })
+        });
     }
 });
 
@@ -56,7 +52,7 @@ uRouter.get('/uid/:uid', ut.isLoggedIn, (req, res) => {
         res.send(html);
     } else {
         dm.getUserInfo(uid, result => {
-            let view = require('./view/userView.js');
+            let view = require('./view/userView');
             let navBar = tplt.navBar(req.session.uname);
             let html = view.view(navBar, result);
             res.send(html);
@@ -78,6 +74,7 @@ uRouter.post('/register',upload.single('photo'), (req, res) => {
     let tel = req.body.tel;
     let email = req.body.email;
     let photo = req.file ? `/upload/${req.file.filename}` : 'upload/blank.png';
+    console.log(uid, photo);
     if (pwd !== pwd2) {
         let html = alert.alertMsg('패스워드가 다릅니다.', '/user/register');
         res.send(html);
@@ -85,8 +82,7 @@ uRouter.post('/register',upload.single('photo'), (req, res) => {
         let pwdHash = ut.generateHash(pwd);
         let params = [uid, pwdHash, uname, tel, email, photo];
         dm.registerUser(params)
-            .then(() => { res.redirect('/login'); })
-            .catch(console.log);
+           res.redirect('/login');
     }
 });
 
@@ -114,17 +110,17 @@ uRouter.post('/update', ut.isLoggedIn, upload.single('photo'), (req, res) => {
     let tel = req.body.tel;
     let email = req.body.email;
     let photo = req.file ? '/upload/' + req.file.filename : null;
-    
+    console.log(uid, photo);
     if (pwd && pwd !== pwd2) {
         let html = alert.alertMsg('패스워드가 다릅니다.', `/user/update/${uid}`);
         res.send(html);
     } else {
         if (pwd)
             pwdHash = ut.generateHash(pwd);
-        let params = [pwdHash, uname, tel, email];
-        dm.updateUser(params, photo, uid)
-            .then(() => {res.redirect(`/user/uid/${uid}`); })
-            .catch(console.log);
+        let params = [pwdHash, uname, tel, email, photo, uid];
+        dm.updateUser(params, () => {
+            res.redirect(`/user/uid/${uid}`);
+        });
     }
 });
 

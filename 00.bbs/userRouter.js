@@ -5,14 +5,13 @@ const vm =require('./view/view-module');
 const ut = require('./util');
 const dm = require('./db/db-module');
 const alert = require('./view/alertMsg');
-const tplt = require('./view/template');
 const multer = require('multer');
-
+const path = pm.join(__dirname, 'view/template')
 
 const uRouter = express.Router();
 const upload = multer({
     storage: multer.diskStorage({
-        destination: __dirname + '/../public/upload/',
+        destination: __dirname + '/public/upload/',
 
     //파일 이름 설정
         filename: (req, file, cb) => {

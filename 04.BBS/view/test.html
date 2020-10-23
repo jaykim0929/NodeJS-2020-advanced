@@ -18,65 +18,34 @@
     </style>
 </head>
 <body>
-    <table class="table table-striped">
-        <tr>
-           <th>번호</th>
-           <th>제목</th>
-           <th>글쓴이</th>
-           <th>날짜</th>
-           <th>조회수</th>
-        </tr>
-        <hr>
-        <tr>
-            <th>1001</th>
-            <th>1001</th>
-            <th>1001</th>
-            <th>1001</th>
-            <th>1001</th>
-        </tr>
-    </table>
-            ${tplt.header()}
-    ${navBar}
-
-<div class="container" style="margin-top: 90px;">
-    <div class="row">
-        <div class="col-12">
-            <h3>회원정보 상세조회</h3>
-            <hr>
+    <div class="container" style="margin-top: 90px;">  
+        <div class="row">
+            <div class="col-12">
+                <h3>사용자 목록</h3>
+                <hr>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <table class="table table-condensed table-hover">
+                    <tr class="table-secondary d-flex">
+                        <td class="col-2" style="text-align: center;"><strong>썸네일</strong></td>                    
+                        <td class="col-2" style="text-align: center;"><strong>아이디</strong></td>
+                        <td class="col-2" style="text-align: center;"><strong>이름</strong></td>
+                        <td class="col-2" style="text-align: center;"><strong>연락처</strong></td>
+                        <td class="col-3" style="text-align: center;"><strong>이메일</strong></td>
+                        <td class="col-2" style="text-align: center;"><strong>등록일</strong></td>
+                        <td class="col-1" style="text-align: center;"><strong>액션</strong></td>
+                    </tr>
+                    ${trs}
+                </table>
+                <ul class="pagination justify-content-center">
+                    ${pages}
+                </ul>
+            </div>
+            <div class="col-1"></div>
         </div>
-        <div class="col-3"></div>
-        <div class="col-6">
-            <table class="table table-condensed">
-                <tr>
-                    <td>사용자 ID</td>
-                    <td>${data.uid}</td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td>${data.uname}</td>
-                </tr>
-                <tr>
-                    <td>전화번호</td>
-                    <td>${data.tel}</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>${data.email}</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;">
-                        <button class="btn btn-primary" onclick="location.href='/bbs/list/1'">확인</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><form action='/upload' method="post" for="image">프로필사진</td>
-                    <td><input type="file" name="upload" id="image" ></td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-3"></div>
-        
     </div>
+    
 </div>
 </body>
 </html>

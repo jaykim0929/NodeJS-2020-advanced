@@ -6,17 +6,19 @@ const ut = require('./util');
 const dm = require('./db/db-module');
 const vm = require('./view/view-module');
 const alert = require('./view/alertMsg');
+
+const bRouter = express.Router();
 const path = pm.join(__dirname, 'view/template');
 const upload = multer({
     storage: multer.diskStorage({
-        destination: __dirname + '/../public/upload/',
+        destination: __dirname + '/public/upload/',
     //파일 이름 설정
         filename: (req, file, cb) => {
             cb(null, new Date().toISOString().replace(/[-:\.A-Z]/g, '') + "_" + file.originalname)
         }
     })
 });
-const bRouter = express.Router();
+
 
 bRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
     let page = parseInt(req.params.page);
