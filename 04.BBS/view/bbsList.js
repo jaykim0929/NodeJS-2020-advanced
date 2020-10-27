@@ -66,6 +66,7 @@ module.exports.list = function (navBar, data, pageNo, startPage, endPage, totalP
         <div class="col-1"></div>
     </div>
 </div>
-		${tplt.footer()}
+
+        ${tplt.footer()}
     `;
 }

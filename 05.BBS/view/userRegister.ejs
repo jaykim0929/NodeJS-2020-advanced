@@ -1,9 +1,10 @@
-const tplt = require('./template');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <%- include(`${path}/header`); %>
+</head>
+<body>
 
-module.exports.register = function() {
-	    return `
-        ${tplt.header()}
-    
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="#">
         <img src="/img/logo.png" alt="호서직업능력개발원"
@@ -68,13 +69,8 @@ module.exports.register = function() {
         <div class="col-3"></div>
     </div>
 </div>
-<script>
-    // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-</script>
-            ${tplt.footer}    
-    `;
-}
+
+    <%- include(`${path}/footer`); %>
+    <%- include(`${path}/uploadScript`); %>
+</body>
+</html> 

@@ -5,6 +5,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const fs = require('fs');
 const dm = require('./db/db-module');
+const morgan = require('morgan');
 const bRouter = require('./bbsRouter');
 const uRouter = require('./userRouter');
 const ut = require('./util');
@@ -22,10 +23,12 @@ app.use(session({
     secret: '1q2w3e4r5t6y',     // keyboard cat
     resave: false,
     saveUninitialized: true,
-    store: new FileStore({logFn: function(){}})
+    store: new FileStore({logFn: function(){}, path: '../sessions'})
 }));
+//app.use(morgan('combined'));
 app.use('/bbs', bRouter);
 app.use('/user', uRouter);
+app.set('view engine', 'ejs');
 app.set('views', __dirname + './view');
 
 app.get('/', ut.isLoggedIn, (req, res) => {

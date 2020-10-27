@@ -4,6 +4,7 @@ module.exports.update = function (navBar, data) {
 	return `
 		${tplt.header()}
         ${navBar}
+
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
         <div class="col-12">
@@ -43,6 +44,7 @@ module.exports.update = function (navBar, data) {
         <div class="col-1"></div>
     </div>
 </div>
+
 		${tplt.footer()}
     `;
 }

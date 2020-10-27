@@ -1,23 +1,10 @@
-const tplt = require('./template');
-
-module.exports.view = function (navBar, result, replies) {
-    let content = result.content.replace(/\n/g, '<br>');
-    let cards = '';
-    for (let reply of replies) {
-        cards += (reply.isMine == 0) ?
-                `<div class="card bg-light text-dark mt-1" style="margin-right: 45%;">` :
-                `<div class="card text-right mt-1" style="margin-left: 60%;">`;
-        cards += `
-                    <div class="card-body">
-                        ${reply.uname}&nbsp;&nbsp;${reply.regTime}<br>
-                        ${reply.content.replace(/\r/g, '<br>')}
-                    </div>
-                </div>`;
-    }
-
-	return `
-		${tplt.header()}
-        ${navBar}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <%- include(`${path}/head`); %>
+</head>
+<body>
+    <%- navBar %>
 
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
@@ -60,6 +47,7 @@ module.exports.view = function (navBar, result, replies) {
     </div>
 </div>
 	
-		${tplt.footer()}
-    `;
-}
+    <%- include(`${path}/footer`); %>
+</body>
+</html>  
+

@@ -1,13 +1,14 @@
-const tplt = require('./template');
+const template = require('./template');
 
-module.exports.delete = function (navBar, bid) {
+module.exports.delete = function (navBar, uid) {
 	return `
-		${tplt.header()}
-        ${navBar}
+		${template.header()}
+    ${navBar}
+
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
         <div class="col-12">
-            <h3>게시판 글삭제</h3>
+            <h3>회원정보 삭제</h3>
             <hr>
         </div>
         <div class="col-3"></div>
@@ -16,8 +17,8 @@ module.exports.delete = function (navBar, bid) {
                 <div class="card-body">
                     <h5 class="card-title">삭제하시겠습니까?</h5>
                     <p class="card-text text-center">
-                        <button class="btn btn-primary" onclick="location.href='/bbs/deleteConfirm/${bid}'">삭제</button>
-                        <button class="btn btn-secondary" onclick="location.href='/bbs/bid/${bid}'">취소</button>
+                        <button class="btn btn-primary" onclick="location.href='/user/deleteConfirm/${uid}'">삭제</button>
+                        <button class="btn btn-secondary" onclick="location.href='/user/list/${uid}'">취소</button>
                     </p>
                 </div>
             </div>
@@ -25,6 +26,8 @@ module.exports.delete = function (navBar, bid) {
         <div class="col-3"></div>
     </div>
 </div>
-        ${tplt.footer()}
+
+        ${template.footer()}
     `;
 }
+

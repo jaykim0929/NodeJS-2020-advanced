@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const mysql = require('mysql');
 let info = fs.readFileSync('./mysql.json', 'utf8');

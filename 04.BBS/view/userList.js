@@ -38,6 +38,7 @@ module.exports.list = function (navBar, data, pageNo, totalPage) {
 	    return `
 		        ${tplt.header()}
         ${navBar}
+
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
         <div class="col-12">
@@ -64,8 +65,6 @@ module.exports.list = function (navBar, data, pageNo, totalPage) {
         <div class="col-1"></div>
     </div>
 </div>
-
-    
-                ${tplt.footer()}
+               ${tplt.footer()}
     `;
 }
